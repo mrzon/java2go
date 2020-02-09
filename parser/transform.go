@@ -7,7 +7,7 @@ import (
 	"log"
 	"strings"
 
-	"github.com/dglo/java2go/grammar"
+	"github.com/mrzon/java2go/grammar"
 )
 
 // list of Java classes which inherit from AbstractList

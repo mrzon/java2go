@@ -4,7 +4,7 @@ import (
 	"go/ast"
 	"go/token"
 
-	"github.com/dglo/java2go/grammar"
+	"github.com/mrzon/java2go/grammar"
 )
 
 type GoFunc interface {

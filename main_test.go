@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/dglo/java2go/parser"
+	"github.com/mrzon/java2go/parser"
 )
 
 const pgm = "package main;\npublic class foo\n{\n\tpublic static void main(String[] args) {\n\t\tSystem.out.println(\"hello\");\n\t}\n}\n"
@@ -29,7 +29,7 @@ func TestLexer(t *testing.T) {
 
 		var tname string
 		if rtn >= 57346 {
-			tname = parser.JulyToknames[rtn - 57346]
+			tname = parser.JulyToknames[rtn-57346]
 		} else {
 			tname = fmt.Sprintf("tok#%d (ch '%c')", rtn, byte(rtn))
 		}

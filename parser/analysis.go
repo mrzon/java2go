@@ -7,7 +7,7 @@ import (
 
 	//"os"
 
-	"github.com/dglo/java2go/grammar"
+	"github.com/mrzon/java2go/grammar"
 )
 
 func findMethod(owner GoMethodOwner, class GoMethodOwner, name string,

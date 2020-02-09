@@ -16,8 +16,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/dglo/java2go/dumper"
-	"github.com/dglo/java2go/grammar"
+	"github.com/mrzon/java2go/dumper"
+	"github.com/mrzon/java2go/grammar"
 )
 
 // assign new struct to receiver
