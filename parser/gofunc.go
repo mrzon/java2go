@@ -15,12 +15,12 @@ type GoFunc interface {
 }
 
 type GoFuncData struct {
-	class string
-	name string
-	goname string
+	class     string
+	name      string
+	goname    string
 	func_type methodType
-	rcvr string
-	params []*grammar.JFormalParameter
+	rcvr      string
+	params    []*grammar.JFormalParameter
 }
 
 func (gf *GoFuncData) Create() ast.Stmt {
@@ -116,7 +116,7 @@ func (gf *GoFuncData) recv() *ast.FieldList {
 	}
 
 	rlist := make([]*ast.Field, 1)
-	rlist[0] = makeField(gf.rcvr, &ast.StarExpr{X: ast.NewIdent(gf.class)})
+	rlist[0] = makeVar(gf.rcvr, &ast.StarExpr{X: ast.NewIdent(gf.class)})
 	return &ast.FieldList{List: rlist}
 }
 
@@ -127,7 +127,7 @@ func (gf *GoFuncData) results() *ast.FieldList {
 
 	// return the receiver
 	rlist := make([]*ast.Field, 1)
-	rlist[0] = makeField(gf.rcvr, &ast.StarExpr{X: ast.NewIdent(gf.class)})
+	rlist[0] = makeVar(gf.rcvr, &ast.StarExpr{X: ast.NewIdent(gf.class)})
 	return &ast.FieldList{List: rlist}
 }
 

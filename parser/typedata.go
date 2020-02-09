@@ -37,21 +37,36 @@ const (
 
 func (vt VarType) String() string {
 	switch vt {
-	case VT_VOID: return "void"
-	case VT_BOOL: return "bool"
-	case VT_BYTE: return "byte"
-	case VT_CHAR: return "char"
-	case VT_INT16: return "int16"
-	case VT_INT: return "int"
-	case VT_INT64: return "int64"
-	case VT_FLOAT32: return "float32"
-	case VT_FLOAT64: return "float64"
-	case VT_STRING: return "string"
-	case VT_GENERIC_OBJECT: return "{}interface"
-	case VT_ARRAY: return "??array??"
-	case VT_MAP: return "??map??"
-	case VT_INTERFACE: return "??interface??"
-	case VT_CLASS: return "??class??"
+	case VT_VOID:
+		return "void"
+	case VT_BOOL:
+		return "bool"
+	case VT_BYTE:
+		return "byte"
+	case VT_CHAR:
+		return "char"
+	case VT_INT16:
+		return "int16"
+	case VT_INT:
+		return "int"
+	case VT_INT64:
+		return "int64"
+	case VT_FLOAT32:
+		return "float32"
+	case VT_FLOAT64:
+		return "float64"
+	case VT_STRING:
+		return "string"
+	case VT_GENERIC_OBJECT:
+		return "{}interface"
+	case VT_ARRAY:
+		return "??array??"
+	case VT_MAP:
+		return "??map??"
+	case VT_INTERFACE:
+		return "??interface??"
+	case VT_CLASS:
+		return "??class??"
 	}
 
 	return fmt.Sprintf("??VarType#%d??", vt)
@@ -63,11 +78,11 @@ type TypeDictionary interface {
 }
 
 type TypeData struct {
-	vtype VarType
-	vclass string
+	vtype      VarType
+	vclass     string
 	array_dims int
-	type1 *TypeData
-	type2 *TypeData
+	type1      *TypeData
+	type2      *TypeData
 }
 
 var genericObject = &TypeData{vtype: VT_GENERIC_OBJECT}
@@ -101,6 +116,8 @@ func NewTypeDataPrimitive(typename string, dims int) *TypeData {
 		noDimType = longType
 	case "float":
 		noDimType = floatType
+	case "Double":
+		noDimType = doubleType
 	case "double":
 		noDimType = doubleType
 	case "string":

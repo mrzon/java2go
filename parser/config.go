@@ -12,20 +12,25 @@ import (
 
 // configuration file
 type Config struct {
-	interfaceMap map[string]string
+	interfaceMap  map[string]string
 	interfaceList []string
-	packageMap map[string]string
-	packageList []string
-	receiverMap map[string]string
-	receiverList []string
+	packageMap    map[string]string
+	packageList   []string
+	receiverMap   map[string]string
+	receiverList  []string
+	ignoremethod  bool
 }
 
 // keyword for defining Java interfaces
 const typeInterface = "INTERFACE"
+
 // keyword for mapping Java package names to Go names
 const typePackage = "PACKAGE"
+
 // keyword for declaring receiver names for a class
 const typeReceiver = "RECEIVER"
+
+const typeIgnoreMethod = "METHODSIGNORE"
 
 func addEntry(entryMap map[string]string, typeName string, key string,
 	val string) map[string]string {
@@ -105,6 +110,12 @@ func ReadConfig(name string) *Config {
 			} else {
 				cfg.addReceiver(flds[1], flds[3])
 			}
+		case typeIgnoreMethod:
+			if len(flds) != 2 {
+				log.Printf("Bad config line: %s\n", scan.Text())
+			} else {
+				cfg.ignoremethod = flds[1] == "true"
+			}
 		}
 	}
 
@@ -116,7 +127,9 @@ func (cfg *Config) Dump(out io.Writer) {
 	need_nl := false
 
 	if len(cfg.packageMap) > 0 {
-		if need_nl { fmt.Fprintln(out) }
+		if need_nl {
+			fmt.Fprintln(out)
+		}
 		fmt.Fprintln(out, "# map Java packages to Go packages")
 		for _, k := range cfg.packageKeys() {
 			fmt.Fprintf(out, "%v %v -> %v\n", typePackage, k,
@@ -126,8 +139,10 @@ func (cfg *Config) Dump(out io.Writer) {
 	}
 
 	if len(cfg.interfaceMap) > 0 {
-		if need_nl { fmt.Fprintln(out) }
-		fmt.Fprintln(out, "# names which should be treated as interfaces" +
+		if need_nl {
+			fmt.Fprintln(out)
+		}
+		fmt.Fprintln(out, "# names which should be treated as interfaces"+
 			" rather than structs")
 		for _, k := range cfg.interfaces() {
 			fmt.Fprintf(out, "%v %v\n", typeInterface, k)
@@ -136,7 +151,9 @@ func (cfg *Config) Dump(out io.Writer) {
 	}
 
 	if len(cfg.receiverMap) > 0 {
-		if need_nl { fmt.Fprintln(out) }
+		if need_nl {
+			fmt.Fprintln(out)
+		}
 		fmt.Fprintln(out, "# receiver name to use (other than 'rcvr')")
 		for _, k := range cfg.receiverKeys() {
 			fmt.Fprintf(out, "%v %v -> %v\n", typeReceiver, k, cfg.receiver(k))
